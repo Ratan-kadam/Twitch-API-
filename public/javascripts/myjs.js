@@ -69,7 +69,23 @@ var module1 = (function() {
     }
 
     function getNextData1() {
+
+
+        /* checking if the query is changed .. if so reset the offset */
         var query = cache.mysearchbox.value;
+
+        if(query.length ==0){
+            alert("Enter Search Query first");
+            return;
+        }
+
+       // var currPage =offset / 10;
+       // var totalPages= (Math.floor(curr_data._total / 10) + 1);
+
+        if( curr_data && ((offset / 10) >= (Math.floor(curr_data._total / 10) + 1))){
+            alert("This is Last page !");
+            return;
+        }
 
         if (cache.previous !== query) {
             offset = 0;
@@ -111,7 +127,9 @@ var module1 = (function() {
         var total = offset / 10 + "/" + (Math.floor(curr_data._total / 10) + 1);
         obj.total = total; // saving the current page / number of pages so at popstate we can restore it
         obj.totalrecords=curr_data._total;
+
         /* maintaining Browser history */
+
         window.history.pushState(obj, null, "page" + offset / 10 + "_OutOf_" + (Math.floor(curr_data._total / 10) + 1));
         document.getElementById("pagenum").innerHTML = total;
 
