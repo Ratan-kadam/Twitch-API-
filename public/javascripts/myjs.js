@@ -68,10 +68,19 @@ var module1 = (function() {
         window.history.back();
     }
 
-    function getNextData1() {
+function getNextData1() {
+    window.history.forward();
+    //alert("line after history forward");
+    var prev=window.location.href;
+    setTimeout(function(){
+        if(window.location.href == prev){
+            dorest();
+        }else{
+            console.log("next history available, picking the deatils from browser histroy");
+        }
+    },200);
 
-
-        /* checking if the query is changed .. if so reset the offset */
+    function dorest(){
         var query = cache.mysearchbox.value;
 
         if(query.length ==0){
@@ -79,8 +88,6 @@ var module1 = (function() {
             return;
         }
 
-       // var currPage =offset / 10;
-       // var totalPages= (Math.floor(curr_data._total / 10) + 1);
 
         if( curr_data && ((offset / 10) >= (Math.floor(curr_data._total / 10) + 1))){
             alert("This is Last page !");
@@ -110,6 +117,9 @@ var module1 = (function() {
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
     }
+    /* checking if the query is changed .. if so reset the offset */
+
+}
 
     function updateUI() {
         var ResultDiv = document.getElementsByClassName("result")[0];
