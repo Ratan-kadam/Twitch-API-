@@ -89,15 +89,17 @@ function getNextData1() {
         }
 
 
+        if (cache.previous !== query) {
+            offset = 0;
+            cache.previous = query; //  updating the cache
+        }
+
         if( curr_data && ((offset / 10) >= (Math.floor(curr_data._total / 10) + 1))){
             alert("This is Last page !");
             return;
         }
 
-        if (cache.previous !== query) {
-            offset = 0;
-            cache.previous = query; //  updating the cache
-        }
+
 
         var xmlhttp = new XMLHttpRequest();
 
